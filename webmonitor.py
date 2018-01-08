@@ -2,7 +2,7 @@ import urllib2
 import threading
 import datetime
 from decimal import *
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 phonenumber = "+1" + raw_input("Phone number (no spaces or dashes) for text updates (Enter 0 for no text updates): +1")
 webinput = raw_input("Website: http://")
@@ -39,14 +39,14 @@ def check():
 		data = webUrl.read()
 		if data != startdata:
 			print "Change made at " + datetime.datetime.now().strftime("%m-%d-%Y %I:%M:%S %p")
-			if phone_number != 0:
+			if phonenumber != 0:
 				account_sid = 'AC45d3f468835bcd8e3014b485c5f9b89c'
 				auth_token = '64404754b965933b7bb3c6c0613be052'
 				twilio_phone_number = '+14582072973'
-				client = TwilioRestClient(account_sid, auth_token)
+				client = Client(account_sid, auth_token)
 				client.messages.create(
 					body="Change made at " + datetime.datetime.now().strftime("%m-%d-%Y %I:%M:%S %p"),
-					to=phone_number,
+					to=phonenumber,
 					from_=twilio_phone_number
 				)
 
